@@ -2,8 +2,8 @@ pipeline {
   agent any
 
   environment {
-        GIT_NAME = "volto-addon-template"
-        NAMESPACE = "@eeacms"
+        GIT_NAME = "volto-teaser-tutorial"
+        NAMESPACE = ""
         SONARQUBE_TAGS = "volto.eea.europa.eu"
         DEPENDENCIES = ""
         VOLTO = ""
@@ -143,7 +143,7 @@ pipeline {
                              reportName: 'CypressCoverage',
                              reportTitles: 'Integration Tests Code Coverage'])
                     }
-                    sh '''touch empty_file; for ok_test in $(grep -E 'file=.*failures="0"' $(grep 'testsuites .*failures="0"' $(find cypress-results -name *.xml) empty_file | awk -F: '{print $1}') empty_file | sed 's/.* file="\\(.*\\)" time.*/\\1/' | sed 's#^cypress/integration/##g' | sed 's#^../../../node_modules/@eeacms/##g'); do rm -f cypress-reports/videos/$ok_test.mp4; rm -f cypress-reports/$ok_test.mp4; done'''
+                    sh '''touch empty_file; for ok_test in $(grep -E 'file=.*failures="0"' $(grep 'testsuites .*failures="0"' $(find cypress-results -name *.xml) empty_file | awk -F: '{print $1}') empty_file | sed 's/.* file="\\(.*\\)" time.*/\\1/' | sed 's#^cypress/integration/##g' | sed 's#^../../../node_modules/##g'); do rm -f cypress-reports/videos/$ok_test.mp4; rm -f cypress-reports/$ok_test.mp4; done'''
                     archiveArtifacts artifacts: 'cypress-reports/**/*.mp4', fingerprint: true, allowEmptyArchive: true
                     stash name: "cypress-coverage", includes: "cypress-coverage/**", allowEmpty: true
                   }
@@ -265,4 +265,5 @@ pipeline {
       }
     }
   }
+}
 }

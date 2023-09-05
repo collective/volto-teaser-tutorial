@@ -1,11 +1,11 @@
 {
-  "name": "@eeacms/volto-addon-template",
+  "name": "volto-teaser-tutorial",
   "version": "0.1.0",
-  "description": "@eeacms/volto-addon-template: Volto add-on",
+  "description": "volto-teaser-tutorial: Volto add-on",
   "main": "src/index.js",
-  "author": "European Environment Agency: IDM2 A-Team",
+  "author": "Nilesh",
   "license": "MIT",
-  "homepage": "https://github.com/eea/volto-addon-template",
+  "homepage": "https://github.com/collective/volto-teaser-tutorial",
   "keywords": [
     "volto-addon",
     "volto",
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:eea/volto-addon-template.git"
+    "url": "git@github.com:collective/volto-teaser-tutorial.git"
   },
   "dependencies": {},
   "devDependencies": {
@@ -44,3 +44,4 @@
     "cypress:open": "make cypress-open"
   }
 }
+

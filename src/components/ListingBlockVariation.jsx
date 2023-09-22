@@ -61,7 +61,7 @@ const DefaultTemplate = (props) => {
               data={{
                 ...item,
                 href: [item?.['@id']],
-                preview_image: item.image_scales.preview_image,
+                preview_image: item.image_scales?.preview_image,
               }}
               {...props}
             />

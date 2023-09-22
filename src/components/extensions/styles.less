@@ -48,3 +48,17 @@
     object-fit: scale-down !important;
   }
 }
+
+#main .has--size--narrow_width,
+#main .narrow_width,
+[class~='narrow_view'] [id='page-document'] > * {
+  max-width: var(--narrow-text-width, 500px) !important;
+}
+
+#main .container_width,
+#main .has--size--container_width,
+.view-wrapper > *,
+[class~='view-defaultview'] [id='page-document'] > *,
+[class~='view-viewview'] [id='page-document'] > * {
+  max-width: var(--container-text-width, 1120px) !important;
+}

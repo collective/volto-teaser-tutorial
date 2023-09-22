@@ -1,5 +1,7 @@
 import MyTeaserView from 'volto-teaser-tutorial/components/MyTeaserView';
+import { addStylingFieldset } from 'volto-teaser-tutorial/components/helpers';
 import TeaserBlockImageVariation from 'volto-teaser-tutorial/components/TeaserBlockImageVariation';
+import ListingVariation from 'volto-teaser-tutorial/components/ListingBlockVariation';
 import TeaserBlockImageDefault from 'volto-teaser-tutorial/components/extensions/TeaserBlockImageDefault';
 import TeaserBlockImageRight from 'volto-teaser-tutorial/components/extensions/TeaserBlockImageRight';
 import TeaserBlockImageOverlay from 'volto-teaser-tutorial/components/extensions/TeaserBlockImageOverlay';
@@ -89,6 +91,40 @@ const applyConfig = (config) => {
       ],
     },
   };
+  // listing block variation
+  config.blocks.blocksConfig.listing.variations = [
+    ...(config.blocks.blocksConfig.listing.variations || []),
+    {
+      id: 'tutorial',
+      isDefault: false,
+      title: 'Sample Variation',
+      template: ListingVariation,
+      schemaEnhancer: ({ schema, FormData, intl }) => {
+        const extension = 'cardTemplates';
+        schema.fieldsets.push({
+          id: 'Cards',
+          title: 'Cards',
+          fields: [],
+        });
+        addExtensionFieldToSchema({
+          schema,
+          name: extension,
+          items: config.blocks.blocksConfig.teaser.extensions[extension]?.items,
+          intl,
+          title: { id: 'Card Type' },
+          insertFieldToOrder: (schema, extension) => {
+            const cardFieldSet = schema.fieldsets.find(
+              (item) => item.id === 'Cards',
+            ).fields;
+            if (cardFieldSet.indexOf(extension) === -1)
+              cardFieldSet.unshift(extension);
+          },
+        });
+        return schema;
+      },
+    },
+  ];
+
   config.blocks.blocksConfig.teaser.dataAdapter = myDataOwnAdapter;
   if (
     config.blocks.blocksConfig?.__grid?.blocksConfig?.teaser &&
@@ -97,6 +133,12 @@ const applyConfig = (config) => {
     //This ensures that grid block uses our overrideen teaser
     config.blocks.blocksConfig.__grid.blocksConfig.teaser =
       config.blocks.blocksConfig.teaser;
+  }
+
+  //listing
+  if (config.blocks.blocksConfig.listing) {
+    config.blocks.blocksConfig.listing.title = 'Listing (Tutorial)';
+    config.blocks.blocksConfig.listing.schemaEnhancer = addStylingFieldset;
   }
 
   return config;

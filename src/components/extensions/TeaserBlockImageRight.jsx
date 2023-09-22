@@ -5,7 +5,11 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import imageBlockSVG from '@plone/volto/components/manage/Blocks/Image/block-image.svg';
 
-import { flattenToAppURL, isInternalURL } from '@plone/volto/helpers';
+import {
+  flattenToAppURL,
+  isInternalURL,
+  addAppURL,
+} from '@plone/volto/helpers';
 import { getTeaserImageURL } from '@plone/volto/components/manage/Blocks/Teaser/utils';
 import { MaybeWrap } from '@plone/volto/components';
 import { formatDate } from '@plone/volto/helpers/Utils/Date';
@@ -82,7 +86,12 @@ const TeaserBlockImageRight = (props) => {
               {(href.hasPreviewImage || href.image_field || image) && (
                 <div className="image-wrapper">
                   <Image
-                    src={hasImageComponent ? href : defaultImageSrc}
+                    src={
+                      hasImageComponent
+                        ? href
+                        : defaultImageSrc ??
+                          addAppURL(`${href}/${image?.download}`)
+                    }
                     alt=""
                     loading="lazy"
                   />

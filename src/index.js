@@ -7,6 +7,7 @@ import TeaserBlockImageRight from 'volto-teaser-tutorial/components/extensions/T
 import TeaserBlockImageOverlay from 'volto-teaser-tutorial/components/extensions/TeaserBlockImageOverlay';
 import { myDataOwnAdapter } from 'volto-teaser-tutorial/components/data-adapter';
 import { addExtensionFieldToSchema } from '@plone/volto/helpers/Extensions/withBlockSchemaEnhancer';
+import './components/styles.less';
 
 const applyConfig = (config) => {
   config.blocks.blocksConfig.teaser.view = MyTeaserView;

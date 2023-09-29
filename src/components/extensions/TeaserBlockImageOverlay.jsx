@@ -9,13 +9,11 @@ import {
   isInternalURL,
   addAppURL,
 } from '@plone/volto/helpers';
-import { getTeaserImageURL } from '@plone/volto/components/manage/Blocks/Teaser/utils';
 import { MaybeWrap } from '@plone/volto/components';
 import { formatDate } from '@plone/volto/helpers/Utils/Date';
 import { UniversalLink } from '@plone/volto/components';
 import cx from 'classnames';
 import config from '@plone/volto/registry';
-import './styles.less';
 
 const messages = defineMessages({
   PleaseChooseContent: {
@@ -61,8 +59,6 @@ const TeaserBlockImageOverlay = (props) => {
   const hasImageComponent = config.getComponent('Image').component;
   const Image = config.getComponent('Image').component || DefaultImage;
   const { openExternalLinkInNewTab } = config.settings;
-  const defaultImageSrc =
-    href && flattenToAppURL(getTeaserImageURL({ href, image, align }));
 
   return (
     <div className={cx('block teaser', className)}>
@@ -90,7 +86,7 @@ const TeaserBlockImageOverlay = (props) => {
             <div className="teaser-item overlay">
               {(href.hasPreviewImage || href.image_field || image) && (
                 <div className="image-wrapper">
-                  <Image
+                  {/* <Image
                     src={
                       hasImageComponent
                         ? href
@@ -99,6 +95,18 @@ const TeaserBlockImageOverlay = (props) => {
                     }
                     alt=""
                     loading="lazy"
+                  /> */}
+                  <Image
+                    item={props['@type'] === 'listing' ? null : image || href}
+                    src={
+                      props['@type'] === 'listing'
+                        ? addAppURL(`${href}/${image?.download}`)
+                        : null
+                    }
+                    imageField={image ? image.image_field : href.image_field}
+                    alt=""
+                    loading="lazy"
+                    responsive={true}
                   />
                 </div>
               )}
